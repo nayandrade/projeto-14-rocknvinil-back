@@ -14,5 +14,5 @@ app.get('/', (req, res) => {
   });
 
 app.listen(process.env.PORT, () => {
-    console.log(chalk.bold.yellow('Server running on port ' + process.env.PORT));
+    console.log(chalk.bold.red('Server running on port ' + process.env.PORT));
 })
