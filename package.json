@@ -2,7 +2,6 @@
   "name": "projeto-14-rocknvinil-back",
   "version": "1.0.0",
   "type": "module",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "start": "node ./src/index.js",
@@ -20,5 +19,14 @@
     "express": "^4.18.1",
     "mongodb": "^4.7.0",
     "nodemon": "^2.0.19"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nayandrade/projeto-14-rocknvinil-back.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nayandrade/projeto-14-rocknvinil-back/issues"
+  },
+  "homepage": "https://github.com/nayandrade/projeto-14-rocknvinil-back#readme",
+  "description": ""
 }
