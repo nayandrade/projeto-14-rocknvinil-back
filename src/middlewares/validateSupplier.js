@@ -1,12 +1,18 @@
-export default async function validateUser (req, res, next) {
+import jwt from 'jsonwebtoken';
+
+export default async function validateSupplier (req, res, next) {
     try {
         const { authorization } = req.headers;
         const token = authorization?.replace('Bearer', '').trim();
-        if (!token) {
+        const secretKey = process.env.JWT_SECRET;
+        const validSupplier = jwt.verify(token, secretKey);
+
+        if(!validSupplier) {
             return res.sendStatus(401);
-        }
+        };
+        
         next();
     } catch (err) {
-        res.status(500).send('Algo deu errado. Tente novamente!');
+        res.status(500).send('Faça login novamente, por favor.');
     }
 }
