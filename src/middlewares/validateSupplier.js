@@ -10,7 +10,7 @@ export default async function validateSupplier (req, res, next) {
         if(!validSupplier) {
             return res.sendStatus(401);
         };
-        
+        req.supplierId = decoded.id;
         next();
     } catch (err) {
         res.status(500).send('Faça login novamente, por favor.');
