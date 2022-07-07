@@ -11,7 +11,7 @@ app.use(cors());
 
 app.get('/', (req, res) => {
     res.send('Hello World');
-  });
+});
 
 app.listen(process.env.PORT, () => {
     console.log(chalk.bold.red('Server running on port ' + process.env.PORT));
