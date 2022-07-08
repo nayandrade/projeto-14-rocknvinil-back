@@ -2,7 +2,7 @@ import { db } from './db.js';
 
 
 export async function getSuppliersProducts (req, res) {
-    const supplierId = req
+    const supplierId = req.body;
     try {
         const supplierProducts = await db.collection('products').find({ supplierId }).toArray();
         const reversedOrderedProducts = supplierProducts.reverse();
