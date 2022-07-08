@@ -1,5 +1,8 @@
 import db from "../db.js";
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
+dotenv.config()
 
 export async function signUpController(request, response){
     const body = request.body;
@@ -18,4 +21,11 @@ export async function signUpController(request, response){
     }catch(error){
         return response.status(500).send('Something went wrong. Try again later.')
     }
+}
+
+export async function signInController(request, response){
+    const user = response.locals.user;
+    const SECRET_KEY = process.env.JWT_SECRET;
+    const token = jwt.sign(user, SECRET_KEY);
+    return response.status(200).send(token);
 }
