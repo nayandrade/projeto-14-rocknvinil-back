@@ -1,0 +1,39 @@
+======================================================================================
+==================================================================== 08/07/22 - Sexta.
+INÍCIO - 10:30 =======================================================================
+======================================================================================
+QQQ
+PRÓXIMA ETAPA: post/sign-in
+
+LÓGICA:
+- receber o email e a senha que vem pelo body da request do front-END
+- verificar se o email já existe na base de dados, para validar se o usuário
+  já está cadastrado
+- se sim, verificar se a senha enviada é igual a senha desse email
+- se sim, pegar o _id de cadastro dele de gerar um token com o jwt
+- devolver esse token para o front e liberar o acesso do usuário
+
+01. Escrever a rota no arquivo de rota.-OK
+
+02. Escrever o esquema de validação usando a lib `joi`. -OK
+
+03. Escrever o middleware, que vai receber as informações 
+    de login vindas do front-end pelo body da request. -OK
+
+04. No middleware verificar se o email passado pelo front -OK
+    já existe no banco de dados, e se a senha enviada corresponde à 
+    senha registrada com o email, caso ele exista. Se sim, passar para 
+    o controlador o _id do usuário. **NOTA**: usar **res.local.nome-da-variavel**
+
+    - descriptografar a senha para fazer a verificação;
+
+05. Escrever o arquivo do controlador da rota. -OK
+
+06. No controlador, gerar para o usuário um token usando o _id 
+    recebido do middleware e então devolver esse token para o front-end. -OK
+
+FIM DA ETAPA: post/sign-in
+======================================================================================
+FIM - 12:09 ==========================================================================
+TOTAL - 01:39 ========================================================================
+======================================================================================

@@ -1,0 +1,80 @@
+======================================================================================
+=================================================================== 07/07/22 - Quinta.
+INÍCIO - 16:03 =======================================================================
+======================================================================================
+QQQ - ETAPA - TELA de CADASTRO - BACK-END (/sign-up)
+
+LÓGICA:
+- criar a rota no arquivo de rotas e exportar;
+- criar o controlador no arquivo de controladores e exportar;
+- importar o controlador no arquivo de rotas e conectar com a rota;
+- importar a rota no arquivo principal e conectar com o servidor;
+
+- criar o esquema de validação que vai garantir o formato dos dados enviados
+- criar o middleware que vai usar esse esquema para validar os dados vindos pelo body
+- importar o esquema no arquivo do middleware e montar a lógica da validação com o body
+- importar o middleware de validação no arquivo de rotas
+
+- Ao final eu tenho:
+    - um arquivo de rota
+    - um arquivo de controlador
+    - um arquivo de esquema para validação
+    - um arquivo de validação (middleware)
+
+    - o controlador vai na rota
+    - o esquema vai no middleware
+    - o middleware também vai na rota
+    - e a rota vai no servidor
+
+- Com tudo isso conectado e funcionando, posso registrar as informações no base de dados.
+
+
+01. Criar o arquivo js que vai armazenar a rota de cadastro. -OK
+
+02. Criar a rota de cadastro usando o express.Router(). -OK
+
+03. Criar o arquivo js que vai armazenar o controlador da rota de cadastro. -OK
+
+04. Importar essa função dentro do arquivo de rotas e conecta-la 
+    com a rota de cadastro. -OK
+
+05. Importar a rota dentro de index.js e passa-la como parâmetro na função use() 
+    do servidor criado com o express. -OK
+
+06. Criar uma pasta para armazenar o esquema de validação 
+    do cadastro (signUpSchema) -OK
+
+07. Criar a validação dos dados que serão enviados pelo usuário na hora do cadastro. 
+    Usar a lib `joi`. -OK
+
+08. Criar uma pasta para o middleware que fará a validação 
+    o usando o schema criado. -OK
+
+09. Criar um arquivo js para armazenar a função assíncrona que fará essa validação. 
+    Os dados virão da pelo corpo da requisição (body da request) Exportar a função 
+    no final do arquivo. -OK
+
+10. Importar essa função dentro do arquivo de rotas e coloca-la como parâmetro antes 
+    do controlador. -OK
+
+11. No controlador, registrar os dados do body no base de dados.
+    **NOTA**: lembrar de criptografar a senha antes de registra-la. -OK
+
+12. Impedir o cadastro de dados já existentes. -OK
+
+FIM DA ETAPA: post/sign-up
+======================================================================================
+PAUSA - 17:52 ========================================================================
+TOTAL - 01:49 ========================================================================
+======================================================================================
+TOTAL DO DIA - 01:49
+======================================================================================
+PRÓXIMA ETAPA: post/sign-in
+
+LÓGICA:
+- receber o email e a senha que vem pelo body da request do front-END
+- verificar se o email já existe na base de dados, para validar se o usuário
+  já está cadastrado
+- se sim, verificar se a senha enviada é igual a senha desse email
+- se sim, pegar o _id de cadastro dele de gerar um token com o jwt
+- devolver esse token para o front e liberar o acesso do usuário
