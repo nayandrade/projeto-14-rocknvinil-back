@@ -6,7 +6,6 @@ export function signInSchema(object){
         password: joi.string().required()
     })
 
-    const validation = validationSchema.validate(object);
-
+    const validation = validationSchema.validate(object, {abortEarly: false});
     return validation;
 }
