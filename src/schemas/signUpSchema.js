@@ -1,6 +1,6 @@
 import joi from "joi";
 
-export function signUpSchema(object){
+export default function signUpSchema(object){
     const cpfRegex = /[0-9]{11}/;
 
     const validationSchema = joi.object({
@@ -11,6 +11,5 @@ export function signUpSchema(object){
     })
 
     const validation = validationSchema.validate(object, {abortEarly: false});
-
     return validation;
 }
