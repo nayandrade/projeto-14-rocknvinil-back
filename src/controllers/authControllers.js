@@ -1,4 +1,4 @@
-import db from "../db.js";
+import { db } from "../db.js";
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
@@ -27,5 +27,6 @@ export async function signInController(request, response){
     const user = response.locals.user;
     const SECRET_KEY = process.env.JWT_SECRET;
     const token = jwt.sign(user, SECRET_KEY);
+    console.log(token)
     return response.status(200).send(token);
 }

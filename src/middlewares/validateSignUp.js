@@ -1,5 +1,5 @@
 import { signUpSchema } from "../schemas/signUpSchema.js";
-import db from "../db.js";
+import { db }  from "../db.js";
 
 export async function validateSignUp(request, response, next){
     const body = request.body;

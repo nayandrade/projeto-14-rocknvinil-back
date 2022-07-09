@@ -1,6 +1,6 @@
 import chalk from "chalk";
 import { ObjectId } from "mongodb";
-import db from '../db.js';
+import { db }  from '../db.js';
 
 export async function getCart(req, res) {
     const { authorization } = req.headers
