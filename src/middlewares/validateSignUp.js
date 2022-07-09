@@ -42,5 +42,7 @@ export async function validateSignUp(request, response, next){
         }
     }
 
-    next();
+    if(!isValid.error){
+        next();
+    }
 }
