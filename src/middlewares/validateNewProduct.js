@@ -1,8 +1,8 @@
-import { productSchema } from '../schemas/productSchema.js'
+import { newProductSchema } from '../schemas/newProductSchema.js'
 
-export async function validateProduct(request, response, next){
+export async function validateNewProduct(request, response, next){
     const body = request.body;
-    const isValid = productSchema(body);
+    const isValid = newProductSchema(body);
 
     if(isValid.error){
         const errorData = isValid.error.details;

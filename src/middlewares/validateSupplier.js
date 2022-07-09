@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 
-export default async function validateSupplier (req, res, next) {
+export async function validateSupplier (req, res, next) {
     try {
         const { authorization } = req.headers;
         const token = authorization?.replace('Bearer', '').trim();
