@@ -5,5 +5,6 @@ import { Router } from 'express';
 const router = Router();
 
 router.get('/products', validateSupplier, getSuppliersProducts);
+router.get('/products', getProductsForSupplier);
 
 export default router;
