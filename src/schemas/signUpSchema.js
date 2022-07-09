@@ -11,6 +11,5 @@ export function signUpSchema(object){
     })
 
     const validation = validationSchema.validate(object, {abortEarly: false});
-
     return validation;
 }
