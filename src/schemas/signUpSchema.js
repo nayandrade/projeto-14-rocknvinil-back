@@ -1,6 +1,6 @@
 import joi from "joi";
 
-export default function signUpSchema(object){
+export function signUpSchema(object){
     const cpfRegex = /[0-9]{11}/;
 
     const validationSchema = joi.object({
