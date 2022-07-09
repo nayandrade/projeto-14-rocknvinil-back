@@ -1,5 +1,5 @@
 import { signInSchema } from '../schemas/signInSchema.js';
-import db from '../db.js';
+import { db } from '../db.js';
 import bcrypt from 'bcrypt';
 
 export async function validateSignIn(request, response, next){

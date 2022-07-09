@@ -1,13 +1,14 @@
+import { db }  from '../db.js';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import dayjs from 'dayjs';
-import db from '../db.js'
+
 dotenv.config()
 
 export async function getSuppliersProducts (req, res) {
-    const { supplierId } = req.body;
+    const { user } = req;
     try {
-        const supplierProducts = await db.collection('products').find({ supplierId }).toArray();
+        const supplierProducts = await db.collection('products').find({ supplierID: user._id }).toArray();
         const reversedOrderedProducts = supplierProducts.reverse();
         res.send(reversedOrderedProducts);
     } catch (err) {
@@ -17,11 +18,10 @@ export async function getSuppliersProducts (req, res) {
 };
 
 export async function getProductsForSupplier (req, res) {
-    const { supplierId } = req.body;
+    const { user } = req;
     try {
-        const allProducts = await db.collection('products').find.toArray();
-        const productsForSupplier = allProducts.filter(product => product.supplierId !== allProducts.supplierId);
-        res.send(productsForSupplier);
+        const products = await db.collection('products').find({supplierID: {$ne : user?._id}}).toArray();
+        res.send(products);
     } catch (err) {
         console.log(err);
         res.status(500).send();

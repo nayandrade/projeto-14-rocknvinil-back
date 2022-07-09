@@ -9,4 +9,4 @@ await mongoClient.connect();
 
 const db = mongoClient.db('rocknvinil');
 
-export default db
+export { db }
