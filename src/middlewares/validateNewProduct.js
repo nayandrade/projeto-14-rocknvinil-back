@@ -12,7 +12,7 @@ export async function validateNewProduct(request, response, next){
             }
     
             if(error.context.key === 'albumYear'){
-                return response.status(401).send('Album year must be a four digit number.');
+                return response.status(401).send('Album year must be a valid year.');
             }
     
             if(error.context.key === 'albumImage'){
