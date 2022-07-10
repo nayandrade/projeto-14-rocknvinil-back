@@ -27,6 +27,8 @@ export async function signInController(request, response){
     const user = response.locals.user;
     const SECRET_KEY = process.env.JWT_SECRET;
     const token = jwt.sign(user, SECRET_KEY);
-    console.log(token)
-    return response.status(200).send(token);
+    const userData = jwt.verify(token, SECRET_KEY);
+    console.log(userData)
+
+    return response.status(200).send({ userData });
 }
