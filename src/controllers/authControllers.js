@@ -1,6 +1,6 @@
 import { db } from "../db.js";
 import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
+import jwt, { decode } from 'jsonwebtoken';
 import dotenv from 'dotenv';
 dotenv.config()
 
@@ -27,8 +27,9 @@ export async function signInController(request, response){
     const user = response.locals.user;
     const SECRET_KEY = process.env.JWT_SECRET;
     const token = jwt.sign(user, SECRET_KEY);
-    const userData = jwt.verify(token, SECRET_KEY);
-    console.log(userData)
-
-    return response.status(200).send({ userData });
+    const data = jwt.verify(token, SECRET_KEY, function(err, decoded) {
+        if (err) return res.status(500).json({ auth: false, message: 'Failed to authenticate token.' });
+        request.user = decoded 
+    });
+    return response.status(200).send({user: request.user, token: token});
 }
