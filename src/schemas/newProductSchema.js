@@ -1,8 +1,8 @@
 import joi from "joi";
 
 export function newProductSchema(object){
-    const yearRegex = /^[1-2]+[0-9]{3}/;
-    const imageRegex = /(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png)/;
+    const yearRegex = /^(19|20)[0-9]{2}$/;
+    const imageRegex = /(http(s?):)([/|.|\w|\s|-])/;
 
     const validationSchema = joi.object({
         albumName: joi.string().required(),
