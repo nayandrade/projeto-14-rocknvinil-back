@@ -1,17 +1,19 @@
 import chalk from "chalk";
+import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
 import { ObjectId } from "mongodb";
 import { db }  from '../db.js';
 
+dotenv.config()
+
 export async function getCart(req, res) {
-    const { authorization } = req.headers
-    const token = authorization?.replace('Bearer ', '');
-    const user = await db.collection('users').findOne({ token });
-    const userId = '123456';
+    const userId = res.locals.userId;
+    console.log(userId)
+
     let totalValue = 0
     
     try {
-        const myCart = await db.collection('cart').find({ userId: userId }).toArray();
-        //const myCart = await db.collection('cart').find({userId: new ObjectId(user.userId)}).toArray();
+        const myCart = await db.collection('cart').find({userId: userId}).toArray();
         myCart.map(element => {
             totalValue += parseFloat(element.price) * parseInt(element.buyerQuantity)
         })
@@ -27,7 +29,9 @@ export async function getCart(req, res) {
 }
 
 export async function addToCart(req, res) {
-    const { supplierName, supplierId, albumName, albumYear, albumPic, bandName, price, discount, quantity, userId } = req.body;
+    const { supplierName, supplierId, albumName, albumYear, albumPic, bandName, price, discount, quantity } = req.body;
+    const userId = res.locals.userId;
+
     let disponibility;
     if (quantity > 0) {
         disponibility = true;
