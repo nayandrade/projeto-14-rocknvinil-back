@@ -24,9 +24,7 @@ export async function addTransaction(req, res) {
             
         })
         const user = await db.collection('users').findOne({ _id: ObjectId(userId) });
-        console.log(user)
-
-        console.log(myCart)
+  
         const acquisition = {
             user: { name: user.name, email: user.email, cpf: user.cpf },
             buyer: buyer, 
