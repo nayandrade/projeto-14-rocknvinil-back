@@ -10,7 +10,6 @@ export async function extractToken (req, res, next) {
         const secretKey = process.env.JWT_SECRET;
         jwt.verify(token, secretKey, function(err, decoded) {
             if (err) return res.status(500).json({ auth: false, message: 'Failed to authenticate token.' });
-            console.log(err)
             req.user = decoded;
             next();
         });

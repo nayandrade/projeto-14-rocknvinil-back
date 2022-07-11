@@ -9,9 +9,9 @@ export async function validateOnlineUser(req, res, next) {
     console.log(token)
     const SECRET_KEY = process.env.JWT_SECRET;
     const userData = jwt.verify(token, SECRET_KEY);
-    console.log(userData)
+    //console.log(userData)
     const userId = userData._id;
-    console.log(userId)
+    //console.log(userId)
     try {
         const validUser = await db.collection('users').findOne({ _id: ObjectId(userId) });
         console.log(validUser)
@@ -24,6 +24,6 @@ export async function validateOnlineUser(req, res, next) {
         next();
 
     } catch (error) {
-        res.sendStatus(500);
+        res.status(501).send(error);
     }
 }

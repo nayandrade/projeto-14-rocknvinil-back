@@ -14,8 +14,9 @@ export async function getCart(req, res) {
     
     try {
         const myCart = await db.collection('cart').find({userId: userId}).toArray();
+        console.log(myCart)
         myCart.map(element => {
-            totalValue += parseFloat(element.price) * parseInt(element.buyerQuantity)
+            totalValue += parseFloat(element.albumPrice) * parseInt(element.buyerQuantity)
         })
         const response = {
             myCart: myCart,
@@ -29,35 +30,33 @@ export async function getCart(req, res) {
 }
 
 export async function addToCart(req, res) {
-    const { supplierName, supplierId, albumName, albumYear, albumPic, bandName, price, discount, quantity } = req.body;
+    const { _id } = req.body;
     const userId = res.locals.userId;
 
-    let disponibility;
-    if (quantity > 0) {
-        disponibility = true;
-    } else {
-        disponibility = false;
-    }
-    const product = {
-        supplierName: supplierName,
-        supplierId: supplierId,
-        albumName: albumName,
-        albumYear: albumYear,
-        albumPic: albumPic,
-        bandName: bandName,
-        price: price,
-        discount: discount,
-        quantity: quantity,
-        disponibility: disponibility,
-        userId: userId,
-        buyerQuantity: 1,
-    }
-
     try {
+        const product = await db.collection('products').findOne({ _id: ObjectId(_id) });
         console.log(product)
-        await db.collection('cart').insertOne(product);
+        const newProduct = {
+            supplierID: product.supplierID,
+            supplierName: product.supplierName,
+            supplierEmail: product.supplierEmail,
+            supplierCPF: product.supplierCPF,
+            albumName: product.albumName,
+            albumYear: product.albumYear,
+            albumImage: product.albumImage,
+            albumBand: product.albumBand,
+            albumPrice: product.albumPrice,
+            albumQuantity: product.albumQuantity,
+            albumDiscount: product.albumDiscount,
+            registerDate: product.registerDate,
+            timeStamp: product.timeStamp,
+            userId: userId,
+        }
+        console.log(newProduct)
+        db.collection('cart').insertOne({...newProduct, buyerQuantity: 1});
         res.status(200).send({ message: 'Produto adicionado ao carrinho' });
     } catch (error) {
+        console.log(error)
         res.sendStatus(500);
     }
 }
