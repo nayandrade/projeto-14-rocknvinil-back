@@ -51,6 +51,7 @@ export async function addToCart(req, res) {
             registerDate: product.registerDate,
             timeStamp: product.timeStamp,
             userId: userId,
+            itemId: _id
         }
         console.log(newProduct)
         db.collection('cart').insertOne({...newProduct, buyerQuantity: 1});
@@ -64,7 +65,7 @@ export async function addToCart(req, res) {
 export async function removeFromCart(req, res) {
     const productId = req.params.id;
     try {
-        await db.collection('cart').deleteOne({ _id: new ObjectId(productId) });
+        db.collection('cart').deleteOne({ _id: new ObjectId(productId) });
         res.status(200).send({ message: 'Produto removido do carrinho' });
     } catch (error) {
         res.sendStatus(500);
