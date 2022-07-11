@@ -8,15 +8,17 @@ dotenv.config()
 
 export async function getCart(req, res) {
     const userId = res.locals.userId;
-    console.log(userId)
 
     let totalValue = 0
     
     try {
         const myCart = await db.collection('cart').find({userId: userId}).toArray();
-        console.log(myCart)
         myCart.map(element => {
-            totalValue += parseFloat(element.albumPrice) * parseInt(element.buyerQuantity)
+            if(element.albumDiscount !== 0) {
+                totalValue += parseFloat(element.albumPrice) * parseInt(element.buyerQuantity) * (1 - (element.albumDiscount/100))
+            } else {
+                totalValue += parseFloat(element.albumPrice) * parseInt(element.buyerQuantity)
+            }
         })
         const response = {
             myCart: myCart,
@@ -35,7 +37,6 @@ export async function addToCart(req, res) {
 
     try {
         const product = await db.collection('products').findOne({ _id: ObjectId(_id) });
-        console.log(product)
         const newProduct = {
             supplierID: product.supplierID,
             supplierName: product.supplierName,
@@ -53,8 +54,13 @@ export async function addToCart(req, res) {
             userId: userId,
             itemId: _id
         }
-        console.log(newProduct)
-        db.collection('cart').insertOne({...newProduct, buyerQuantity: 1});
+
+        const checkItem = await db.collection('cart').find({userId: userId, itemId: _id }).toArray();
+        if(checkItem.length > 0) {
+            db.collection('cart').updateOne({userId: userId, itemId: _id}, {$inc: {buyerQuantity: 1}})
+        } else {
+            db.collection('cart').insertOne({...newProduct, buyerQuantity: 1});
+        }
         res.status(200).send({ message: 'Produto adicionado ao carrinho' });
     } catch (error) {
         console.log(error)
