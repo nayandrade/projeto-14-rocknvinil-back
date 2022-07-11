@@ -1,4 +1,3 @@
-import chalk from "chalk";
 import { ObjectId } from "mongodb";
 import { db } from '../db.js';
 import nodemailer from 'nodemailer';
