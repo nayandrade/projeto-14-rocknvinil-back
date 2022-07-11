@@ -3,14 +3,10 @@ import { ObjectId } from "mongodb";
 import { db } from '../db.js';
 
 
-
 export async function addTransaction(req, res) {
     const { userId } = res.locals;
     const buyer = req.body;
     let totalValue = 0
-    // const encryptCard = bcrypt.hashSync(buyer.cardNumber, 10);
-    // const encryptCvv = bcrypt.hashSync(buyer.cvv, 10);
-    // const encryptExpiration = bcrypt.hashSync(buyer.expiration, 10);
     
     try {
         const myCart = await db.collection('cart').find({ userId: userId }).toArray();
