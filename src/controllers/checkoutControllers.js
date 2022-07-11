@@ -32,6 +32,7 @@ export async function addTransaction(req, res) {
             totalValue: totalValue
         }
         await db.collection('transactions').insertOne(acquisition);
+        updateProduct(myCart);
         await db.collection('cart').deleteMany({ userId: userId });
         res.status(202).send(acquisition)
     } catch (error) {
@@ -40,3 +41,10 @@ export async function addTransaction(req, res) {
 
 }
 
+async function updateProduct(mycart) {
+    mycart.map(element => {
+        db.collection('products').updateOne({ _id: ObjectId(element.itemId) }, { $set: { albumQuantity: String(parseInt(element.albumQuantity)-element.buyerQuantity) } });
+    })
+
+
+}
