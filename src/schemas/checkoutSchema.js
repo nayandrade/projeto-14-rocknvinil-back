@@ -3,7 +3,7 @@ import joi from 'joi';
 export function checkoutSchema(object) {
 
     const cpfRegex = /^([0-9]){3}\.([0-9]){3}\.([0-9]){3}-([0-9]){2}$/;
-    const cardRegex = /^([0-9]){12}$/;
+    const cardRegex = /^([0-9]){16}$/;
     const ccvRegex = /^([0-9]){3}$/;
     const dateRegex = /^(0[1-9]|1[0-2])\/\d{2}$/;
     const phoneRegex = /\(?([0-9]{2})\)?([ ]?)([0-9]{4})\2([0-9]{4})/;
